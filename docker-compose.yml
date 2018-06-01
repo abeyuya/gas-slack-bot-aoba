@@ -1,0 +1,10 @@
+version: '3'
+services:
+  node:
+    image: node:8.10
+    volumes:
+      - .:/var/repo
+    environment:
+      CLASPRC: ${CLASPRC}
+      CLASPCONF: ${CLASPCONF}
+    working_dir: /var/repo

@@ -1,0 +1,12 @@
+# package directories
+node_modules
+jspm_packages
+yarn-error.log
+
+# webpack
+.webpack
+ts-node-*
+
+# clasp
+.clasp.json
+

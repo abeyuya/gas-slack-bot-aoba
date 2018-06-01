@@ -1,0 +1,12 @@
+{
+  "name": "repo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "clasp": "./set_env.sh; clasp"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@google/clasp": "^1.3.1"
+  }
+}
