@@ -7,4 +7,5 @@ services:
     environment:
       CLASPRC: ${CLASPRC}
       CLASPCONF: ${CLASPCONF}
+      SLACK_TOKEN: ${SLACK_TOKEN}
     working_dir: /var/repo
