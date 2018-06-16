@@ -1,6 +1,21 @@
 {
-  "timeZone": "America/New_York",
+  "timeZone": "Asia/Tokyo",
   "dependencies": {
+    "libraries": [{
+      "userSymbol": "TwitterWebService",
+      "libraryId": "1PKoC3FXG6qVHcWapXv2cd3bx-JUTI2P0JpowlaxsyfCzpJ2EZ6W5UKXz",
+      "version": "1",
+      "developmentMode": true
+    }, {
+      "userSymbol": "SlackApp",
+      "libraryId": "1on93YOYfSmV92R5q59NpKmsyWIQD8qnoLYk-gkQBI92C58SPyA2x1-bq",
+      "version": "22",
+      "developmentMode": true
+    }]
+  },
+  "webapp": {
+    "access": "ANYONE_ANONYMOUS",
+    "executeAs": "USER_DEPLOYING"
   },
   "exceptionLogging": "STACKDRIVER"
 }

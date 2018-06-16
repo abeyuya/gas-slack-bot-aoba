@@ -8,4 +8,6 @@ services:
       CLASPRC: ${CLASPRC}
       CLASPCONF: ${CLASPCONF}
       SLACK_TOKEN: ${SLACK_TOKEN}
+      TWITTER_KEY: ${TWITTER_KEY}
+      TWITTER_SECRET: ${TWITTER_SECRET}
     working_dir: /var/repo
