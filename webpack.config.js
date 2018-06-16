@@ -1,5 +1,6 @@
 const path = require('path');
 const GasPlugin = require("gas-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   context: __dirname,
@@ -27,6 +28,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new GasPlugin()
+    new GasPlugin(),
+    new webpack.EnvironmentPlugin(['SLACK_TOKEN'])
   ]
 };

@@ -1,9 +1,7 @@
 declare var global: any;
 
-global.handler = () => {
-  Logger.log("hello typescript clasp");
-};
+import { postAsAoba } from "../lib/slack";
 
-// function handler() {
-//   console.log("test");
-// }
+global.handler = () => {
+  postAsAoba("@abeyuya", "テストだぞい");
+};
