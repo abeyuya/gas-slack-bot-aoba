@@ -4,9 +4,8 @@ jspm_packages
 yarn-error.log
 
 # webpack
-.webpack
+dist
 ts-node-*
 
 # clasp
 .clasp.json
-
