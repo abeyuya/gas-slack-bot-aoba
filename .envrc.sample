@@ -1,0 +1,11 @@
+export CLASPRC='{"access_token":"xxx","token_type":"Bearer","refresh_token":"xxx","expiry_date":1500000000000}'
+export CLASPCONF='{"scriptId":"xxx", "rootDir":"dist"}'
+export SLACK_TOKEN=xoxp-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+export SLACK_TALK_CHANNEL=xxx
+export SLACK_TALK_TO_ACCOUNT=xxx
+export SLACK_DS_CHANNEL=xxx
+export TW_CONSUMER_KEY=xxx
+export TW_CONSUMER_SECRET=xxx
+export TW_ACCESS_TOKEN=xxx
+export TW_ACCESS_TOKEN_SECRET=xxx
+export DOCOMO_APIKEY=xxx
