@@ -6,7 +6,8 @@ module.exports = {
   context: __dirname,
   mode: 'development',
   entry: {
-    ds: './src/entrypoint/ds.ts'
+    ds: './src/entrypoint/ds.ts',
+    webhook: './src/entrypoint/webhook.ts',
   },
   devtool: false,
   output: {
@@ -36,6 +37,7 @@ module.exports = {
       'TW_ACCESS_TOKEN',
       'TW_ACCESS_TOKEN_SECRET',
       'DS_CHANNEL',
+      'DOCOMO_APIKEY',
     ])
   ]
 };
