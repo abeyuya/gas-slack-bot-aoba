@@ -18,7 +18,7 @@ enum Mode {
 interface IDialogueOption {
   nickname: string;
   sex?: Sex;
-  age?: number;
+  age?: string;
   place?: string;
   mode: Mode;
   t: ToneType;
@@ -54,11 +54,14 @@ const registUserUrl =
 export const getDialogueMessage = (userId: string, message: string): string => {
   const dialogueOption: IDialogueOption = {
     nickname: userId,
+    sex: Sex.female,
+    age: "17",
+    place: "東京",
     t: ToneType.kansai,
     mode: Mode.dialog,
   };
 
-  const appId = getUserAppId();
+  const appId = getUserAppId(userId);
 
   const requestOption: IDialogueRequest = {
     language: "ja-JP",
@@ -74,7 +77,7 @@ export const getDialogueMessage = (userId: string, message: string): string => {
 
   const option = {
     method: "post",
-    contentType: "text/json",
+    contentType: "application/json",
     payload: JSON.stringify(requestOption),
   };
   const res = UrlFetchApp.fetch(dialogueUrl, option as any);
@@ -82,7 +85,13 @@ export const getDialogueMessage = (userId: string, message: string): string => {
   return json.systemText.utterance;
 };
 
-const getUserAppId = (): string => {
+const getUserAppId = (userId: string): string => {
+  const props = PropertiesService.getScriptProperties();
+  const key = `docomo-userAppId-${userId}`;
+  const userAppId = props.getProperty(key);
+
+  if (userAppId) { return userAppId; }
+
   const option = {
     method: "post",
     contentType: "application/json",
@@ -93,6 +102,8 @@ const getUserAppId = (): string => {
   };
   const res = UrlFetchApp.fetch(registUserUrl, option as any);
   const json: { appId: string } = JSON.parse(res.getContentText());
+
+  props.setProperty(key, json.appId);
 
   return json.appId;
 };
