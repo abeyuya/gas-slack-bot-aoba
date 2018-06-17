@@ -1,13 +1,13 @@
 
+import { IWebhookEvent } from "../entrypoint/webhook";
 import { getDialogueMessage } from "./docomo_zatsudan";
 import { postAsAoba } from "./slack";
 
-export const zatsudanAoba = (e) => {
+export const zatsudanAoba = (e: IWebhookEvent) => {
 
-  const message = e.parameter.text.replace("@aoba", "").trim();
-  const userName = e.parameter.user_name;
-  const channelId = e.parameter.channel_id;
-  const responseMessage = getDialogueMessage(userName, message);
+  const { text, user_name, channel_id } = e.parameter;
+  const message = text.replace("@aoba", "").trim();
+  const responseMessage = getDialogueMessage(user_name, message);
 
-  postAsAoba(channelId, responseMessage);
+  postAsAoba(channel_id, responseMessage);
 };

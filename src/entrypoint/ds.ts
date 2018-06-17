@@ -1,13 +1,12 @@
 declare var global: any;
 
-// import { isBusinessDay } from "../lib/isBussinessDay";
 import { postAsAoba } from "../lib/slack";
 import { getAobaTweets } from "../lib/twitter";
-import { randomPickup } from "../lib/util";
+import { isBusinessDay, randomPickup } from "../lib/util";
 
 global.handler = () => {
 
-  // if (isBusinessDay() === false) { return; }
+  if (isBusinessDay() === false) { return; }
 
   const tweets = getAobaTweets();
   const targetTweets: string[] = randomPickup(tweets, 3);
