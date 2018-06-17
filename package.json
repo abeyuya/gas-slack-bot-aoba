@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "clasp": "./set_clasp_info.sh && clasp",
-    "build": "webpack && cpx src/appsscript.json dist",
+    "build": "webpack --display-error-details && cpx src/appsscript.json dist",
     "push": "yarn clasp push",
     "deploy": "yarn build && yarn push"
   },

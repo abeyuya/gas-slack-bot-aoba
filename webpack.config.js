@@ -31,8 +31,10 @@ module.exports = {
     new GasPlugin(),
     new webpack.EnvironmentPlugin([
       'SLACK_TOKEN',
-      'TWITTER_KEY',
-      'TWITTER_SECRET'
+      'TW_CONSUMER_KEY',
+      'TW_CONSUMER_SECRET',
+      'TW_ACCESS_TOKEN',
+      'TW_ACCESS_TOKEN_SECRET',
     ])
   ]
 };

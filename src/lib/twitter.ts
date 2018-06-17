@@ -1,50 +1,42 @@
 
-declare var TwitterWebService: any;
+declare var OAuth1: any;
 
-// OAuth1認証
-const twitterClient = TwitterWebService.getInstance(
-  process.env.TWITTER_KEY,
-  process.env.TWITTER_SECRET,
-);
-
-// Twitter認証
-const authorize = () => {
-  twitterClient.authorize();
+// https://github.com/gsuitedevs/apps-script-oauth1/blob/master/samples/Twitter.gs
+const getTwitterService = () => {
+  return OAuth1.createService("Twitter")
+    .setAccessTokenUrl("https://api.twitter.com/oauth/access_token")
+    .setRequestTokenUrl("https://api.twitter.com/oauth/request_token")
+    .setAuthorizationUrl("https://api.twitter.com/oauth/authorize")
+    .setConsumerKey(process.env.TW_CONSUMER_KEY)
+    .setConsumerSecret(process.env.TW_CONSUMER_SECRET)
+    .setAccessToken(process.env.TW_ACCESS_TOKEN, process.env.TW_ACCESS_TOKEN_SECRET);
 };
 
-// コールバック
-export const authCallback = (request) => {
-  return twitterClient.authCallback(request);
+const buildGetTweetsUrl = (userId: string, count: number): string => {
+  return [
+    `https://api.twitter.com/1.1/statuses/user_timeline.json`,
+    `?screen_name=${userId}`,
+    `&count=${count}`,
+  ].join("");
 };
 
 const aobaOfficialTwitterId = "aoba_s_new";
 
-const buildUrl = (userId: string, limit: number): string => {
-  return [
-    "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=",
-    userId,
-    `&count=${limit}`,
-  ].join("");
-};
-
 // 特定ユーザのタイムラインを取得
-const getTweets = (userId: string, limit: number = 20): string[] => {
+const getTweets = (userId: string, count: number): string[] => {
 
-  // TwitterAPIでタイムラインを取得してJSONパース
-  // https://dev.twitter.com/rest/reference/get/statuses/user_timeline
-  const service = twitterClient.getService();
-  authorize();
-
-  const response = service.fetch(buildUrl(userId, limit));
-  const tweets = JSON.parse(response);
-
-  const messages = tweets.map((tweet) => {
+  const service = getTwitterService();
+  const res = service.fetch(buildGetTweetsUrl(userId, count));
+  const json = JSON.parse(res);
+  const tweets: string[] = json.map((tweet) => {
     return tweet.text.split(/\r\n|\r|\n/)[0];
   });
 
-  return messages;
+  Logger.log(tweets);
+
+  return tweets;
 };
 
-export const getAobaTweets = () => {
-  return getTweets(aobaOfficialTwitterId);
+export const getAobaTweets = (count: number = 20): string[] => {
+  return getTweets(aobaOfficialTwitterId, count);
 };
