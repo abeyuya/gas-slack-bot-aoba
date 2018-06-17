@@ -8,6 +8,7 @@ module.exports = {
   entry: {
     ds: './src/entrypoint/ds.ts',
     webhook: './src/entrypoint/webhook.ts',
+    talk: './src/entrypoint/talk.ts',
   },
   devtool: false,
   output: {
@@ -32,11 +33,13 @@ module.exports = {
     new GasPlugin(),
     new webpack.EnvironmentPlugin([
       'SLACK_TOKEN',
+      'SLACK_TALK_CHANNEL',
+      'SLACK_TALK_TO_ACCOUNT',
+      'SLACK_DS_CHANNEL',
       'TW_CONSUMER_KEY',
       'TW_CONSUMER_SECRET',
       'TW_ACCESS_TOKEN',
       'TW_ACCESS_TOKEN_SECRET',
-      'DS_CHANNEL',
       'DOCOMO_APIKEY',
     ])
   ]

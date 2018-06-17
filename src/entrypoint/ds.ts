@@ -4,7 +4,7 @@ import { postAsAoba } from "../lib/slack";
 import { getAobaTweets } from "../lib/twitter";
 import { isBusinessDay, randomPickup } from "../lib/util";
 
-global.handler = () => {
+global.ds = () => {
 
   if (isBusinessDay() === false) { return; }
 
@@ -25,5 +25,5 @@ global.handler = () => {
     "```",
   ].join("\n");
 
-  postAsAoba(process.env.DS_CHANNEL || "", postMessage);
+  postAsAoba(process.env.SLACK_DS_CHANNEL || "", postMessage);
 };

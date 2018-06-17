@@ -58,6 +58,7 @@ const postToSlack = (
 
   const params: IParams = { method: "post", payload };
   const res = UrlFetchApp.fetch(slackPostUrl, params as any);
+  Logger.log(res);
   return res;
 };
 

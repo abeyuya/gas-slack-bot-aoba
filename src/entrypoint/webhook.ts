@@ -1,5 +1,5 @@
 
-import { postAsAoba } from "../lib/slack";
+// import { postAsAoba } from "../lib/slack";
 import { zatsudanAoba } from "../lib/zatsudan";
 
 declare var global: any;
@@ -12,7 +12,7 @@ export interface IWebhookEvent {
 }
 
 global.doPost = (e: IWebhookEvent) => {
-  postAsAoba("@abeyuya", JSON.stringify(e));
+  Logger.log(e);
 
   if (isAobaZatsudan(e)) {
     zatsudanAoba(e);
