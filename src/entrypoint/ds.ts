@@ -3,13 +3,28 @@ declare var global: any;
 // import { isBusinessDay } from "../lib/isBussinessDay";
 import { postAsAoba } from "../lib/slack";
 import { getAobaTweets } from "../lib/twitter";
+import { randomPickup } from "../lib/util";
 
 global.handler = () => {
 
   // if (isBusinessDay() === false) { return; }
 
   const tweets = getAobaTweets();
-  Logger.log(tweets);
+  const targetTweets: string[] = randomPickup(tweets, 3);
+  const manzokudo = Math.floor(Math.random() * 4) + 1;
 
-  postAsAoba("@abeyuya", "テストだぞい");
+  const postMessage = [
+    "```",
+    `# 満足度: ${manzokudo}`,
+    `- ${targetTweets[0]}`,
+    "",
+    `# 目標`,
+    `- ${targetTweets[1]}`,
+    "",
+    `# 意気込み`,
+    `- ${targetTweets[2]}`,
+    "```",
+  ].join("\n");
+
+  postAsAoba(process.env.DS_CHANNEL || "", postMessage);
 };

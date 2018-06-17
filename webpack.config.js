@@ -35,6 +35,7 @@ module.exports = {
       'TW_CONSUMER_SECRET',
       'TW_ACCESS_TOKEN',
       'TW_ACCESS_TOKEN_SECRET',
+      'DS_CHANNEL',
     ])
   ]
 };
