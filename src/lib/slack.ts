@@ -1,11 +1,13 @@
 
+import { aobaBot } from "./aoba";
+
 interface IPayload {
   token: string;
   channel: string;
   text: string;
   username: string;
   parse: string;
-  icon_emoji: string;
+  icon_url: string;
   attachments?: string;
 }
 
@@ -26,15 +28,10 @@ interface IParams {
   payload: IPayload;
 }
 
-interface IBot {
+export interface IBot {
   username: string;
-  icon_emoji: string;
+  icon_url: string;
 }
-
-const aobaBot: IBot = {
-  username: "青葉",
-  icon_emoji: ":aoba:",
-};
 
 const slackPostUrl = "https://slack.com/api/chat.postMessage";
 const slackPostToken = process.env.SLACK_TOKEN || "";
@@ -52,7 +49,7 @@ const postToSlack = (
     text,
     parse: "full",
     username: bot.username,
-    icon_emoji: bot.icon_emoji,
+    icon_url: bot.icon_url,
     attachments: JSON.stringify(attachments),
   };
 
