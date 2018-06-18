@@ -12,15 +12,16 @@ interface IPayload {
 }
 
 interface IAttachmentField {
-  title: string;
-  value: string;
-  short: boolean;
+  title?: string;
+  value?: string;
+  short?: boolean;
 }
 
-interface IAttachment {
-  color: "#36a64f" | "danger";
-  image_url: string;
-  fields: IAttachmentField[];
+export interface IAttachment {
+  color?: "#36a64f" | "danger";
+  image_url?: string;
+  fields?: IAttachmentField[];
+  pretext: string;
 }
 
 interface IParams {

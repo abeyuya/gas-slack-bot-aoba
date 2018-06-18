@@ -38,6 +38,7 @@ module.exports = {
       'SLACK_TALK_TO_ACCOUNT',
       'SLACK_DS_CHANNEL',
       'SLACK_OWNER_CHANNEL',
+      'SLACK_DEBUG_CHANNEL',
       'TW_CONSUMER_KEY',
       'TW_CONSUMER_SECRET',
       'TW_ACCESS_TOKEN',
