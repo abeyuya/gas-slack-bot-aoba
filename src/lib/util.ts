@@ -7,7 +7,7 @@ export const randomPickup = (array: any[], pickupCount: number): any[] => {
   let n = pickupCount < l ? pickupCount : l;
 
   while (n-- > 0) {
-    const i = Math.floor(Math.random()) * l || 0;
+    const i = Math.floor(Math.random() * l) || 0;
     r[n] = t[i] || a[i];
     --l;
     t[i] = t[l] || a[l];
