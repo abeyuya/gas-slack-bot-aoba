@@ -9,6 +9,7 @@ module.exports = {
     ds: './src/entrypoint/ds.ts',
     webhook: './src/entrypoint/webhook.ts',
     talk: './src/entrypoint/talk.ts',
+    zoi: './src/entrypoint/zoi.ts',
   },
   devtool: false,
   output: {
@@ -36,6 +37,7 @@ module.exports = {
       'SLACK_TALK_CHANNEL',
       'SLACK_TALK_TO_ACCOUNT',
       'SLACK_DS_CHANNEL',
+      'SLACK_OWNER_CHANNEL',
       'TW_CONSUMER_KEY',
       'TW_CONSUMER_SECRET',
       'TW_ACCESS_TOKEN',
