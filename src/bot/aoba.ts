@@ -41,25 +41,3 @@ export const execMo = (param: ISlackOutgoingWebhookParams) => {
   ];
   postToSlackAsBot(aobaBot, channel_id, "", attachments);
 };
-
-const otsukareImageList = [
-  "https://pbs.twimg.com/media/CCT9-y2UMAAtQMg.jpg",
-  "http://blog.oukasoft.com/wp-content/uploads/90b5e937575ba81a447c63fdabd0fb87.jpg",
-];
-
-export const execOtsukare = (param: ISlackOutgoingWebhookParams) => {
-  const { channel_id, user_name, text } = param;
-  if (user_name === "slackbot" ||
-    text.indexOf("お疲れ様です") === 0 ||
-    text.indexOf("おつかれさまです") === 0
-  ) { return; }
-
-  const imgUrl = randomPickup(otsukareImageList, 1)[0];
-  const attachments: IAttachment[] = [
-    {
-      pretext: "",
-      image_url: imgUrl,
-    },
-  ];
-  postToSlackAsBot(aobaBot, channel_id, "おつかれさまでしたー！", attachments);
-};

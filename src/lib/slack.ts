@@ -1,10 +1,6 @@
 
-import {
-  aobaBot,
-  execMo,
-  execOtsukare,
-} from "../bot/aoba";
-import { execZatsudan, IBot } from "../bot/base";
+import { aobaBot, execMo } from "../bot/aoba";
+import { execOtsukare, execZatsudan, IBot } from "../bot/base";
 
 interface IPayload {
   token: string;
