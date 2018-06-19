@@ -1,6 +1,7 @@
 declare var global: any;
 
-import { postAsAoba } from "../lib/slack";
+import { aobaBot } from "../bot/aoba";
+import { postToSlackAsBot } from "../lib/slack";
 import { getAobaTweets } from "../lib/twitter";
 import { isBusinessDay, randomPickup } from "../lib/util";
 
@@ -8,10 +9,12 @@ global.talk = () => {
   if (isBusinessDay() === false) { return; }
 
   const tweets = getAobaTweets(5);
-  const tweet = randomPickup(tweets, 1);
+  const tweet = randomPickup(tweets, 1)[0];
 
-  postAsAoba(
-    "#" + process.env.SLACK_TALK_CHANNEL || "",
+  postToSlackAsBot(
+    aobaBot.username,
+    aobaBot.icon_url,
+    process.env.SLACK_TALK_CHANNEL || "",
     `@${process.env.SLACK_TALK_TO_ACCOUNT} ${tweet}`,
   );
 };

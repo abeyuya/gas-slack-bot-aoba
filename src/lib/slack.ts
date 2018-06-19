@@ -1,6 +1,4 @@
 
-import { aobaBot } from "./aoba";
-
 interface IPayload {
   token: string;
   channel: string;
@@ -29,16 +27,25 @@ interface IParams {
   payload: IPayload;
 }
 
-export interface IBot {
-  username: string;
-  icon_url: string;
+export interface ISlackOutgoingWebhookParams {
+  token: string;
+  team_id: string;
+  team_domain: string;
+  channel_id: string;
+  channel_name: string;
+  timestamp: string;
+  user_id: string;
+  user_name: string;
+  text: string;
+  trigger_word: string;
 }
 
 const slackPostUrl = "https://slack.com/api/chat.postMessage";
 const slackPostToken = process.env.SLACK_TOKEN || "";
 
-const postToSlack = (
-  bot: IBot,
+export const postToSlackAsBot = (
+  botUsername: string,
+  botIconUrl: string,
   channel: string,
   text: string,
   attachments?: IAttachment[],
@@ -49,21 +56,12 @@ const postToSlack = (
     channel,
     text,
     parse: "full",
-    username: bot.username,
-    icon_url: bot.icon_url,
+    username: botUsername,
+    icon_url: botIconUrl,
     attachments: JSON.stringify(attachments),
   };
 
   const params: IParams = { method: "post", payload };
   const res = UrlFetchApp.fetch(slackPostUrl, params as any);
-  Logger.log(res);
   return res;
-};
-
-export const postAsAoba = (
-  channel: string,
-  text: string,
-  attachments?: IAttachment[],
-) => {
-  return postToSlack(aobaBot, channel, text, attachments);
 };

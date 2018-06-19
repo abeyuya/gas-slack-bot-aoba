@@ -1,5 +1,5 @@
 
-export const randomPickup = (array: any[], pickupCount: number): any[] => {
+export const randomPickup = <T>(array: T[], pickupCount: number): T[] => {
   const a = array;
   const t: any = [];
   const r: any = [];
