@@ -1,4 +1,5 @@
 
+import { akagiBot } from "../bot/akagi";
 import { aobaBot } from "../bot/aoba";
 import { IBot } from "../bot/base";
 import {
@@ -14,6 +15,7 @@ interface IOtsukare {
   imageUrl: string;
 }
 
+// tslint:disable
 const otsukareList: IOtsukare[] = [
   {
     bot: aobaBot,
@@ -25,7 +27,13 @@ const otsukareList: IOtsukare[] = [
     message: "おつかれさまでしたー！",
     imageUrl: "http://blog.oukasoft.com/wp-content/uploads/90b5e937575ba81a447c63fdabd0fb87.jpg",
   },
+  {
+    bot: akagiBot,
+    message: "",
+    imageUrl: "https://cdn-ak.f.st-hatena.com/images/fotolife/h/heppoko_chihayap/20170313/20170313111738.jpg",
+  },
 ];
+// tslint:enable
 
 const ignoreOtsukareWords = [
   "お疲れ様です",
