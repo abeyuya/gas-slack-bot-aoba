@@ -1,8 +1,11 @@
 
-import { ISlackOutgoingWebhookParams } from "../entrypoint/webhook";
-import { getDialogueMessage } from "./docomo_zatsudan";
-import { IAttachment, IBot, postAsAoba } from "./slack";
-import { randomPickup } from "./util";
+import {
+  IAttachment,
+  ISlackOutgoingWebhookParams,
+  postToSlackAsBot,
+} from "../lib/slack";
+import { randomPickup } from "../lib/util";
+import { IBot } from "./base";
 
 // tslint:disable
 const aobaIconList = [
@@ -26,38 +29,7 @@ export const aobaBot: IBot = {
   icon_url: todayAobaIcon(),
 };
 
-export const triggerAobaBotFromSlack = (param: ISlackOutgoingWebhookParams) => {
-
-  switch (param.trigger_word) {
-    case "@aoba":
-    case "U3S3FR23F": {
-      execZatsudan(param);
-      break;
-    }
-
-    case ":mo:": {
-      execMo(param);
-      break;
-    }
-
-    case "お疲れ":
-    case "落ちます":
-    case "おつかれ": {
-      execOtsukare(param);
-      break;
-    }
-  }
-};
-
-const execZatsudan = (param: ISlackOutgoingWebhookParams) => {
-  const { text, user_name, channel_id } = param;
-  const receivedMessage = text.replace("@aoba", "").trim();
-  const responseMessage = getDialogueMessage(user_name, receivedMessage);
-
-  postAsAoba(channel_id, responseMessage);
-};
-
-const execMo = (param: ISlackOutgoingWebhookParams) => {
+export const execMo = (param: ISlackOutgoingWebhookParams) => {
   const currentHour = new Date().getHours();
   if (currentHour < 18) { return; }
   const { channel_id } = param;
@@ -67,7 +39,7 @@ const execMo = (param: ISlackOutgoingWebhookParams) => {
       image_url: "http://livedoor.blogimg.jp/bmaysu/imgs/1/9/192424ff.png",
     },
   ];
-  postAsAoba(channel_id, "", attachments);
+  postToSlackAsBot(aobaBot, channel_id, "", attachments);
 };
 
 const otsukareImageList = [
@@ -75,7 +47,7 @@ const otsukareImageList = [
   "http://blog.oukasoft.com/wp-content/uploads/90b5e937575ba81a447c63fdabd0fb87.jpg",
 ];
 
-const execOtsukare = (param: ISlackOutgoingWebhookParams) => {
+export const execOtsukare = (param: ISlackOutgoingWebhookParams) => {
   const { channel_id, user_name, text } = param;
   if (user_name === "slackbot" ||
     text.indexOf("お疲れ様です") === 0 ||
@@ -89,5 +61,5 @@ const execOtsukare = (param: ISlackOutgoingWebhookParams) => {
       image_url: imgUrl,
     },
   ];
-  postAsAoba(channel_id, "おつかれさまでしたー！", attachments);
+  postToSlackAsBot(aobaBot, channel_id, "おつかれさまでしたー！", attachments);
 };

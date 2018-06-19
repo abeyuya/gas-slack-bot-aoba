@@ -1,5 +1,10 @@
 
-import { aobaBot } from "./aoba";
+import {
+  aobaBot,
+  execMo,
+  execOtsukare,
+} from "../bot/aoba";
+import { execZatsudan, IBot } from "../bot/base";
 
 interface IPayload {
   token: string;
@@ -29,15 +34,10 @@ interface IParams {
   payload: IPayload;
 }
 
-export interface IBot {
-  username: string;
-  icon_url: string;
-}
-
 const slackPostUrl = "https://slack.com/api/chat.postMessage";
 const slackPostToken = process.env.SLACK_TOKEN || "";
 
-const postToSlack = (
+export const postToSlackAsBot = (
   bot: IBot,
   channel: string,
   text: string,
@@ -56,14 +56,41 @@ const postToSlack = (
 
   const params: IParams = { method: "post", payload };
   const res = UrlFetchApp.fetch(slackPostUrl, params as any);
-  Logger.log(res);
   return res;
 };
 
-export const postAsAoba = (
-  channel: string,
-  text: string,
-  attachments?: IAttachment[],
-) => {
-  return postToSlack(aobaBot, channel, text, attachments);
+export interface ISlackOutgoingWebhookParams {
+  token: string;
+  team_id: string;
+  team_domain: string;
+  channel_id: string;
+  channel_name: string;
+  timestamp: string;
+  user_id: string;
+  user_name: string;
+  text: string;
+  trigger_word: string;
+}
+
+export const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
+
+  switch (param.trigger_word) {
+    case "@aoba":
+    case "U3S3FR23F": {
+      execZatsudan(aobaBot, param);
+      break;
+    }
+
+    case ":mo:": {
+      execMo(param);
+      break;
+    }
+
+    case "お疲れ":
+    case "落ちます":
+    case "おつかれ": {
+      execOtsukare(param);
+      break;
+    }
+  }
 };
