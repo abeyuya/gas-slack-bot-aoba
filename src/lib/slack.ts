@@ -1,7 +1,4 @@
 
-import { aobaBot, execMo } from "../bot/aoba";
-import { execOtsukare, execZatsudan, IBot } from "../bot/base";
-
 interface IPayload {
   token: string;
   channel: string;
@@ -30,31 +27,6 @@ interface IParams {
   payload: IPayload;
 }
 
-const slackPostUrl = "https://slack.com/api/chat.postMessage";
-const slackPostToken = process.env.SLACK_TOKEN || "";
-
-export const postToSlackAsBot = (
-  bot: IBot,
-  channel: string,
-  text: string,
-  attachments?: IAttachment[],
-) => {
-
-  const payload: IPayload = {
-    token: slackPostToken,
-    channel,
-    text,
-    parse: "full",
-    username: bot.username,
-    icon_url: bot.icon_url,
-    attachments: JSON.stringify(attachments),
-  };
-
-  const params: IParams = { method: "post", payload };
-  const res = UrlFetchApp.fetch(slackPostUrl, params as any);
-  return res;
-};
-
 export interface ISlackOutgoingWebhookParams {
   token: string;
   team_id: string;
@@ -68,25 +40,28 @@ export interface ISlackOutgoingWebhookParams {
   trigger_word: string;
 }
 
-export const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
+const slackPostUrl = "https://slack.com/api/chat.postMessage";
+const slackPostToken = process.env.SLACK_TOKEN || "";
 
-  switch (param.trigger_word) {
-    case "@aoba":
-    case "U3S3FR23F": {
-      execZatsudan(aobaBot, param);
-      break;
-    }
+export const postToSlackAsBot = (
+  botUsername: string,
+  botIconUrl: string,
+  channel: string,
+  text: string,
+  attachments?: IAttachment[],
+) => {
 
-    case ":mo:": {
-      execMo(param);
-      break;
-    }
+  const payload: IPayload = {
+    token: slackPostToken,
+    channel,
+    text,
+    parse: "full",
+    username: botUsername,
+    icon_url: botIconUrl,
+    attachments: JSON.stringify(attachments),
+  };
 
-    case "お疲れ":
-    case "落ちます":
-    case "おつかれ": {
-      execOtsukare(param);
-      break;
-    }
-  }
+  const params: IParams = { method: "post", payload };
+  const res = UrlFetchApp.fetch(slackPostUrl, params as any);
+  return res;
 };

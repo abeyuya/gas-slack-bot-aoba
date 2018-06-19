@@ -1,10 +1,4 @@
 
-import {
-  IAttachment,
-  ISlackOutgoingWebhookParams,
-  postToSlackAsBot,
-} from "../lib/slack";
-import { randomPickup } from "../lib/util";
 import { IBot } from "./base";
 
 // tslint:disable
@@ -27,17 +21,4 @@ const todayAobaIcon = (): string => {
 export const aobaBot: IBot = {
   username: "青葉",
   icon_url: todayAobaIcon(),
-};
-
-export const execMo = (param: ISlackOutgoingWebhookParams) => {
-  const currentHour = new Date().getHours();
-  if (currentHour < 18) { return; }
-  const { channel_id } = param;
-  const attachments: IAttachment[] = [
-    {
-      pretext: "",
-      image_url: "http://livedoor.blogimg.jp/bmaysu/imgs/1/9/192424ff.png",
-    },
-  ];
-  postToSlackAsBot(aobaBot, channel_id, "", attachments);
 };
