@@ -1,6 +1,7 @@
 declare var global: any;
 
 import { aobaBot } from "../bot/aoba";
+import "../lib/polyfill";
 import { postToSlackAsBot } from "../lib/slack";
 
 global.test = () => {
