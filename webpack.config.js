@@ -10,6 +10,7 @@ module.exports = {
     webhook: './src/entrypoint/webhook.ts',
     talk: './src/entrypoint/talk.ts',
     zoi: './src/entrypoint/zoi.ts',
+    test: './src/entrypoint/test.ts',
   },
   devtool: false,
   output: {
@@ -20,14 +21,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.(js|ts)$/,
         use: 'ts-loader'
       }
     ]
   },
   resolve: {
     extensions: [
-      '.ts'
+      '.js', '.ts'
     ]
   },
   plugins: [

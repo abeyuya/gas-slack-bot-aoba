@@ -4,9 +4,8 @@
   "main": "index.js",
   "scripts": {
     "clasp": "./set_clasp_info.sh && clasp",
-    "build": "webpack --display-error-details && cpx src/appsscript.json dist",
-    "push": "yarn clasp push",
-    "deploy": "yarn build && yarn push",
+    "build": "rm -rf dist && webpack --display-error-details && cpx src/appsscript.json dist",
+    "deploy": "yarn build && yarn clasp push",
     "test": "mocha"
   },
   "license": "MIT",
