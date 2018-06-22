@@ -45,6 +45,8 @@ module.exports = {
       'TW_ACCESS_TOKEN',
       'TW_ACCESS_TOKEN_SECRET',
       'DOCOMO_APIKEY',
+      'GITHUB_ACCESS_TOKEN',
+      'GITHUB_TARGET_ORGS',
     ])
   ]
 };

@@ -1,8 +1,9 @@
 declare var global: any;
 
-import { aobaBot } from "../bot/aoba";
 import "../lib/polyfill";
-import { postToSlackAsBot } from "../lib/slack";
+// import { aobaBot } from "../bot/aoba";
+// import { postToSlackAsBot } from "../lib/slack";
+import { getAssignedPullRequests } from "../lib/github";
 
 global.test = () => {
 
@@ -14,10 +15,13 @@ global.test = () => {
   const find = arr.find((obj) => obj === "c");
   Logger.log(find || "");
 
-  postToSlackAsBot(
-    aobaBot.username,
-    aobaBot.icon_url,
-    process.env.SLACK_DEBUG_CHANNEL || "",
-    `テストだぞい`,
-  );
+  const info = getAssignedPullRequests("abeyuya");
+  Logger.log(info);
+
+  // postToSlackAsBot(
+  //   aobaBot.username,
+  //   aobaBot.icon_url,
+  //   process.env.SLACK_DEBUG_CHANNEL || "",
+  //   `テストだぞい`,
+  // );
 };
