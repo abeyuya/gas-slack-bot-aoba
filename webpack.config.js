@@ -10,6 +10,7 @@ module.exports = {
     webhook: './src/entrypoint/webhook.ts',
     talk: './src/entrypoint/talk.ts',
     zoi: './src/entrypoint/zoi.ts',
+    github_pr_remind: './src/entrypoint/github_pr_remind.ts',
     test: './src/entrypoint/test.ts',
   },
   devtool: false,

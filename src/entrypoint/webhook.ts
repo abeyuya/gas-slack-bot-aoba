@@ -30,8 +30,10 @@ const isSlackOutgoingWebhook = (e: IWebhookEvent): boolean => {
 };
 
 enum TriggerWord {
-  aoba = "@aoba",
-  aobaPr = "@aoba pr",
+  aoba1 = "@aoba",
+  aobaPr1 = "@aoba pr",
+  aoba2 = "<@U3S3FR23F>",
+  aobaPr2 = "<@U3S3FR23F> pr",
   mo = ":mo:",
   otsukare1 = "お疲れ",
   otsukare2 = "おつかれ",
@@ -40,12 +42,18 @@ enum TriggerWord {
 
 const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
 
-  if (param.text.startsWith(TriggerWord.aobaPr)) {
+  if (
+    param.text.startsWith(TriggerWord.aobaPr1) ||
+    param.text.startsWith(TriggerWord.aobaPr2)
+  ) {
     execGithubPr(param);
     return;
   }
 
-  if (param.text.startsWith(TriggerWord.aoba)) {
+  if (
+    param.text.startsWith(TriggerWord.aoba1) ||
+    param.text.startsWith(TriggerWord.aoba2)
+  ) {
     execZatsudan(aobaBot, param);
     return;
   }

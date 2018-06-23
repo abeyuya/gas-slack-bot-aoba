@@ -34,7 +34,7 @@ export const execGithubPr = (param: ISlackOutgoingWebhookParams) => {
   if (pullInfo.length === 0) {
     const emptyMessage = [
       `${username}さんにレビュー依頼されているpull requestはなさそうでした！`,
-      "青葉の確認ミスだったらごめんなさい TT",
+      "青葉の確認ミスだったらごめんなさい :pray:",
       `https://github.com/pulls/review-requested`,
     ].join("\n");
 
@@ -59,5 +59,11 @@ export const execGithubPr = (param: ISlackOutgoingWebhookParams) => {
     aobaBot.icon_url,
     param.channel_id,
     message,
+    [
+      {
+        pretext: "",
+        image_url: "https://i.pinimg.com/736x/18/c8/1e/18c81e845fb478d5f5542f1a0fd1b5d9.jpg",
+      },
+    ],
   );
 };
