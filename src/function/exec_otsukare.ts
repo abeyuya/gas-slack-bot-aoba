@@ -1,6 +1,7 @@
 
 import { akagiBot } from "../bot/akagi";
 import { aobaBot } from "../bot/aoba";
+import { nenecchiBot } from "../bot/nenecchi";
 import { IBot } from "../bot/base";
 import {
   IAttachment,
@@ -31,6 +32,11 @@ const otsukareList: IOtsukare[] = [
     bot: akagiBot,
     message: "",
     imageUrl: "https://cdn-ak.f.st-hatena.com/images/fotolife/h/heppoko_chihayap/20170313/20170313111738.jpg",
+  },
+  {
+    bot: nenecchiBot,
+    message: "おつかれー！",
+    imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL8pEArBOEy7eRgkQG1sNxnj8uG8x8etgvLyotcGtLWO-IExdG",
   },
 ];
 // tslint:enable
