@@ -5,7 +5,9 @@ import { execMo } from "../function/exec_mo";
 import { execOtsukare } from "../function/exec_otsukare";
 import { execZatsudan } from "../function/exec_zatsudan";
 import { execGithubPr } from "../function/exec_github_pr";
+import { execLunch } from "../function/exec_lunch";
 import { ISlackOutgoingWebhookParams, postToSlackAsBot } from "../lib/slack";
+import { randomPickup } from "../lib/util";
 
 declare var global: any;
 
@@ -38,6 +40,8 @@ enum TriggerWord {
   otsukare1 = "お疲れ",
   otsukare2 = "おつかれ",
   otsukare3 = "落ちます",
+  rice = ":rice:",
+  riceBall = ":rice_ball:",
 }
 
 const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
@@ -69,6 +73,16 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
     param.text.startsWith(TriggerWord.otsukare3)
   ) {
     execOtsukare(param);
+    return;
+  }
+
+  if (
+    param.text.startsWith(TriggerWord.rice) ||
+    param.text.startsWith(TriggerWord.riceBall)
+  ) {
+    const ignore = randomPickup([true, true, false], 1)[0];
+    if (ignore) { return; }
+    execLunch(param);
     return;
   }
 
