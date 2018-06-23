@@ -21,6 +21,7 @@ const buildGetTweetsUrl = (userId: string, count: number): string => {
 };
 
 const aobaOfficialTwitterId = "aoba_s_new";
+const nenecchiTwitterId = "nene_newgame";
 
 // 特定ユーザのタイムラインを取得
 const getTweets = (userId: string, count: number): string[] => {
@@ -39,4 +40,8 @@ const getTweets = (userId: string, count: number): string[] => {
 
 export const getAobaTweets = (count: number = 20): string[] => {
   return getTweets(aobaOfficialTwitterId, count);
+};
+
+export const getNenecchiTweets = (count: number = 20): string[] => {
+  return getTweets(nenecchiTwitterId, count);
 };
