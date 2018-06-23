@@ -7,7 +7,6 @@ export const buildGithubPrMessage = (assignedInfo: IAssignedInfo[]) => {
     return [
       `# ${info.orgName}`,
       info.assignedPrRepos.map((repo) => {
-        if (!repo) { return null; }
         return [
           `  - ${repo.repoName}`,
           repo.assignedPrs.map((pr) => {
@@ -17,7 +16,7 @@ export const buildGithubPrMessage = (assignedInfo: IAssignedInfo[]) => {
             ].join("\n");
           }).join("\n"),
         ].join("\n");
-      }),
+      }).join("\n"),
     ].join("\n");
   }).join("\n");
 

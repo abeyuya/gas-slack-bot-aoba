@@ -1,8 +1,10 @@
 
+import "../lib/polyfill";
 import { aobaBot } from "../bot/aoba";
 import { execMo } from "../function/exec_mo";
 import { execOtsukare } from "../function/exec_otsukare";
 import { execZatsudan } from "../function/exec_zatsudan";
+import { execGithubPr } from "../function/exec_github_pr";
 import { ISlackOutgoingWebhookParams, postToSlackAsBot } from "../lib/slack";
 
 declare var global: any;
@@ -28,8 +30,8 @@ const isSlackOutgoingWebhook = (e: IWebhookEvent): boolean => {
 };
 
 enum TriggerWord {
-  aoba1 = "@aoba",
-  aoba2 = "<@U3S3FR23F>",
+  aoba = "@aoba",
+  aobaPr = "@aoba pr",
   mo = ":mo:",
   otsukare1 = "お疲れ",
   otsukare2 = "おつかれ",
@@ -37,33 +39,36 @@ enum TriggerWord {
 }
 
 const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
-  switch (param.trigger_word) {
-    case TriggerWord.aoba1:
-    case TriggerWord.aoba2: {
-      execZatsudan(aobaBot, param);
-      break;
-    }
 
-    case TriggerWord.mo: {
-      execMo(aobaBot, param);
-      break;
-    }
-
-    case TriggerWord.otsukare1:
-    case TriggerWord.otsukare2:
-    case TriggerWord.otsukare3: {
-      execOtsukare(param);
-      break;
-    }
-
-    default: {
-      const message = `未実装のトリガーワードを受け取ったぞい [${param.trigger_word}]`;
-      postToSlackAsBot(
-        aobaBot.username,
-        aobaBot.icon_url,
-        process.env.SLACK_DEBUG_CHANNEL || "",
-        message,
-      );
-    }
+  if (param.text.startsWith(TriggerWord.aobaPr)) {
+    execGithubPr(param);
+    return;
   }
+
+  if (param.text.startsWith(TriggerWord.aoba)) {
+    execZatsudan(aobaBot, param);
+    return;
+  }
+
+  if (param.text.startsWith(TriggerWord.mo)) {
+    execMo(aobaBot, param);
+    return;
+  }
+
+  if (
+    param.text.startsWith(TriggerWord.otsukare1) ||
+    param.text.startsWith(TriggerWord.otsukare2) ||
+    param.text.startsWith(TriggerWord.otsukare3)
+  ) {
+    execOtsukare(param);
+    return;
+  }
+
+  const message = `未実装のトリガーワードを受け取ったぞい [${param.trigger_word}]`;
+  postToSlackAsBot(
+    aobaBot.username,
+    aobaBot.icon_url,
+    process.env.SLACK_DEBUG_CHANNEL || "",
+    message,
+  );
 };
