@@ -60,7 +60,7 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
     param.text.startsWith(TriggerWord.aoba1) ||
     param.text.startsWith(TriggerWord.aoba2)
   ) {
-    execZatsudan(aobaBot, param);
+    execZatsudan(aobaBot, param.trigger_word, param);
     return;
   }
 

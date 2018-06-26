@@ -10,9 +10,9 @@ import {
 } from "../lib/slack";
 import { randomPickup } from "../lib/util";
 
-export const execZatsudan = (bot: IBot, param: ISlackOutgoingWebhookParams) => {
+export const execZatsudan = (bot: IBot, triggerWord: string, param: ISlackOutgoingWebhookParams) => {
   const { text, user_name, channel_id } = param;
-  const receivedMessage = text.replace(`@${bot.username}`, "").trim();
+  const receivedMessage = text.replace(triggerWord, "").trim();
   const responseMessage = getDialogueMessage(user_name, receivedMessage);
 
   postToSlackAsBot(
