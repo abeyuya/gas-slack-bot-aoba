@@ -1,6 +1,7 @@
 
-const targetOrganizations = JSON.parse(process.env.GITHUB_TARGET_ORGS || "[]");
+import { uniqPickup } from "../lib/util";
 
+const targetOrganizations: string[] = JSON.parse(process.env.GITHUB_TARGET_ORGS || "[]");
 const accessToken = process.env.GITHUB_ACCESS_TOKEN || "";
 const endpoint = "https://api.github.com/graphql";
 
@@ -73,6 +74,17 @@ export const getAssignedPullRequests = (username: string) => {
   return result;
 };
 
+export const getAllAssignedPullRequests = () => {
+  const graphql = buildAssignedPullRequestsGql("abeyuya");
+  const option = buildRequestOption(graphql);
+  const res = UrlFetchApp.fetch(endpoint, option as any);
+
+  const json: IAssignedPullRequestsResponse = JSON.parse(res.getContentText());
+  const result = pickAllAssignedPr(json);
+
+  return result;
+};
+
 const targetOrgs = (json: IAssignedPullRequestsResponse) => {
   return json.data.user.organizations.nodes.filter((org) => {
     const urlInfo = org.url.split("/");
@@ -123,6 +135,72 @@ const pickAssignedPr = (username: string, json: IAssignedPullRequestsResponse): 
     result.push({
       orgName: org.name,
       assignedPrRepos,
+    });
+  });
+
+  return result;
+};
+
+export interface IAllUserAssignedPrRepo {
+  username: string;
+  assignedInfo: IAssignedInfo[];
+}
+
+const pickAllAssignedPr = (json: IAssignedPullRequestsResponse): IAllUserAssignedPrRepo[] => {
+  const orgs = targetOrgs(json);
+
+  let allUsers: string[] = [];
+  orgs.forEach((org) => {
+    org.repositories.nodes.forEach((repo) => {
+      repo.pullRequests.nodes.forEach((pr) => {
+        pr.reviewRequests.nodes.forEach((reviewRequest) => {
+          const urlInfo = reviewRequest.requestedReviewer.url.split("/");
+          const username = urlInfo[urlInfo.length - 1];
+          allUsers.push(username);
+        });
+      });
+    });
+  });
+  allUsers = uniqPickup(allUsers);
+
+  if (allUsers.length === 0) { return []; }
+
+  const result: IAllUserAssignedPrRepo[] = allUsers.map((username) => {
+    return { username, assignedInfo: [] };
+  });
+
+  allUsers.forEach((username) => {
+    orgs.forEach((org) => {
+      const assignedPrRepos: IAssignedPrRepo[] = [];
+
+      org.repositories.nodes.forEach((repo) => {
+        const assignedPrs = repo.pullRequests.nodes.filter((pr) => {
+          const assignedPr = pr.reviewRequests.nodes.filter((reviewRequest) => {
+            const urlInfo = reviewRequest.requestedReviewer.url.split("/");
+            const assignedUsername = urlInfo[urlInfo.length - 1];
+            return username === assignedUsername;
+          });
+
+          return assignedPr.length !== 0;
+        });
+
+        if (assignedPrs.length === 0) { return; }
+
+        assignedPrRepos.push({
+          repoName: repo.name,
+          repoUrl: repo.url,
+          assignedPrs,
+        });
+      });
+
+      if (assignedPrRepos.length === 0) { return; }
+
+      const userResult = result.find((r) => r.username === username);
+      if (!userResult) { return; }
+      userResult.assignedInfo.push({
+        orgName: org.name,
+        assignedPrRepos,
+      });
     });
   });
 

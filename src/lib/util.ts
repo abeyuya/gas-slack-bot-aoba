@@ -16,6 +16,14 @@ export const randomPickup = <T>(array: T[], pickupCount: number): T[] => {
   return r;
 };
 
+const onlyUnique = <T>(value: T, index: number, self: any) => {
+  return self.indexOf(value) === index;
+};
+
+export const uniqPickup = <T>(array: T[]): T[] => {
+  return array.filter(onlyUnique);
+};
+
 export const isBusinessDay = (): boolean => {
   const date = new Date();
 

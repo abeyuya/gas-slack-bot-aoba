@@ -11,6 +11,7 @@ module.exports = {
     talk: './src/entrypoint/talk.ts',
     zoi: './src/entrypoint/zoi.ts',
     github_pr_remind: './src/entrypoint/github_pr_remind.ts',
+    github_pr_remind_all_user: './src/entrypoint/github_pr_remind_all_user.ts',
     test: './src/entrypoint/test.ts',
   },
   devtool: false,
