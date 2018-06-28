@@ -34,8 +34,10 @@ const isSlackOutgoingWebhook = (e: IWebhookEvent): boolean => {
 enum TriggerWord {
   aoba1 = "@aoba",
   aobaPr1 = "@aoba pr",
+  aobaPrRemind1 = "Reminder: @aoba pr",
   aoba2 = "<@U3S3FR23F>",
   aobaPr2 = "<@U3S3FR23F> pr",
+  aobaPrRemind2 = "Reminder: <@U3S3FR23F> pr",
   mo = ":mo:",
   otsukare1 = "お疲れ",
   otsukare2 = "おつかれ",
@@ -50,7 +52,9 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
 
   if (
     param.text.startsWith(TriggerWord.aobaPr1) ||
-    param.text.startsWith(TriggerWord.aobaPr2)
+    param.text.startsWith(TriggerWord.aobaPr2) ||
+    param.text.startsWith(TriggerWord.aobaPrRemind1) ||
+    param.text.startsWith(TriggerWord.aobaPrRemind2)
   ) {
     execGithubPr(param);
     return;
