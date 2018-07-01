@@ -170,38 +170,13 @@ const pickAllAssignedPr = (json: IAssignedPullRequestsResponse): IAllUserAssigne
   });
 
   allUsers.forEach((username) => {
-    orgs.forEach((org) => {
-      const assignedPrRepos: IAssignedPrRepo[] = [];
+    const info = pickAssignedPr(username, json);
+    if (info.length === 0) { return; }
 
-      org.repositories.nodes.forEach((repo) => {
-        const assignedPrs = repo.pullRequests.nodes.filter((pr) => {
-          const assignedPr = pr.reviewRequests.nodes.filter((reviewRequest) => {
-            const urlInfo = reviewRequest.requestedReviewer.url.split("/");
-            const assignedUsername = urlInfo[urlInfo.length - 1];
-            return username === assignedUsername;
-          });
+    const userResult = result.find((r) => r.username === username);
+    if (!userResult) { return; }
 
-          return assignedPr.length !== 0;
-        });
-
-        if (assignedPrs.length === 0) { return; }
-
-        assignedPrRepos.push({
-          repoName: repo.name,
-          repoUrl: repo.url,
-          assignedPrs,
-        });
-      });
-
-      if (assignedPrRepos.length === 0) { return; }
-
-      const userResult = result.find((r) => r.username === username);
-      if (!userResult) { return; }
-      userResult.assignedInfo.push({
-        orgName: org.name,
-        assignedPrRepos,
-      });
-    });
+    userResult.assignedInfo = info;
   });
 
   return result;
