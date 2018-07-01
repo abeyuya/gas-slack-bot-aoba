@@ -1,6 +1,6 @@
 
-import "../lib/polyfill";
-import { IAssignedInfo, IAllUserAssignedPrRepo } from "../lib/github";
+import "../polyfill";
+import { IAssignedInfo, IAllUserAssignedPrRepo } from "../client/github";
 
 const buildPrInfoMarkDown = (assignedInfo: IAssignedInfo[]) => {
   const body = assignedInfo.map((info) => {

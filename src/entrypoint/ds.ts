@@ -1,8 +1,8 @@
 declare var global: any;
 
-import { aobaBot } from "../bot/aoba";
-import { postToSlackAsBot } from "../lib/slack";
-import { getAobaTweets } from "../lib/twitter";
+import { aobaBot } from "../lib/bot/aoba";
+import { postToSlackAsBot } from "../lib/client/slack";
+import { getAobaTweets } from "../lib/client/twitter";
 import { isBusinessDay, randomPickup } from "../lib/util";
 
 global.ds = () => {

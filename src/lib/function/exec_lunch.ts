@@ -5,8 +5,8 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-} from "../lib/slack";
-import { randomPickup } from "../lib/util";
+} from "../client/slack";
+import { randomPickup } from "../util";
 
 const lunchList = [
   {

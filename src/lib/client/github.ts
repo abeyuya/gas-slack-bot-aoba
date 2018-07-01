@@ -1,5 +1,5 @@
 
-import { uniqPickup } from "../lib/util";
+import { uniqPickup } from "../util";
 
 const targetOrganizations: string[] = JSON.parse(process.env.GITHUB_TARGET_ORGS || "[]");
 const accessToken = process.env.GITHUB_ACCESS_TOKEN || "";

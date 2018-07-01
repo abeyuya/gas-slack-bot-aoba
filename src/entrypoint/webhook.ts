@@ -1,12 +1,12 @@
 
 import "../lib/polyfill";
-import { aobaBot } from "../bot/aoba";
-import { execMo } from "../function/exec_mo";
-import { execOtsukare } from "../function/exec_otsukare";
-import { execZatsudan, execZatsudanAkagi, execZatsudanNenecchi } from "../function/exec_zatsudan";
-import { execGithubPr } from "../function/exec_github_pr";
-import { execLunch } from "../function/exec_lunch";
-import { ISlackOutgoingWebhookParams, postToSlackAsBot } from "../lib/slack";
+import { aobaBot } from "../lib/bot/aoba";
+import { execMo } from "../lib/function/exec_mo";
+import { execOtsukare } from "../lib/function/exec_otsukare";
+import { execZatsudan, execZatsudanAkagi, execZatsudanNenecchi } from "../lib/function/exec_zatsudan";
+import { execGithubPr } from "../lib/function/exec_github_pr";
+import { execLunch } from "../lib/function/exec_lunch";
+import { ISlackOutgoingWebhookParams, postToSlackAsBot } from "../lib/client/slack";
 import { randomPickup } from "../lib/util";
 
 declare var global: any;

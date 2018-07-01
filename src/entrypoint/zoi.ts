@@ -1,7 +1,7 @@
 declare var global: any;
 
-import { aobaBot } from "../bot/aoba";
-import { postToSlackAsBot } from "../lib/slack";
+import { aobaBot } from "../lib/bot/aoba";
+import { postToSlackAsBot } from "../lib/client/slack";
 import { isBusinessDay } from "../lib/util";
 
 global.zoi = () => {

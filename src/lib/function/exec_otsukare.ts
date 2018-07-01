@@ -7,8 +7,8 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-} from "../lib/slack";
-import { randomPickup } from "../lib/util";
+} from "../client/slack";
+import { randomPickup } from "../util";
 
 interface IOtsukare {
   bot: IBot;

@@ -2,13 +2,13 @@
 import { IBot } from "../bot/base";
 import { akagiBot } from "../bot/akagi";
 import { nenecchiBot } from "../bot/nenecchi";
-import { getDialogueMessage } from "../lib/docomo_zatsudan";
-import { getNenecchiTweets } from "../lib/twitter";
+import { getDialogueMessage } from "../client/docomo_zatsudan";
+import { getNenecchiTweets } from "../client/twitter";
 import {
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-} from "../lib/slack";
-import { randomPickup } from "../lib/util";
+} from "../client/slack";
+import { randomPickup } from "../util";
 
 export const execZatsudan = (bot: IBot, triggerWord: string, param: ISlackOutgoingWebhookParams) => {
   const { text, user_name, channel_id } = param;

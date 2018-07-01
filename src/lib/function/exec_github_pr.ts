@@ -3,8 +3,8 @@ import { aobaBot } from "../bot/aoba";
 import {
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-} from "../lib/slack";
-import { getAssignedPullRequests, getAllAssignedPullRequests } from "../lib/github";
+} from "../client/slack";
+import { getAssignedPullRequests, getAllAssignedPullRequests } from "../client/github";
 import { buildGithubPrMessage, buildGithubPrMessageForAllUser } from "./github_pr_message";
 
 export const execGithubPr = (param: ISlackOutgoingWebhookParams) => {

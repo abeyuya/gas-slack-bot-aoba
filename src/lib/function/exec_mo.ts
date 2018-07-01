@@ -4,7 +4,7 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-} from "../lib/slack";
+} from "../client/slack";
 
 export const execMo = (bot: IBot, param: ISlackOutgoingWebhookParams) => {
   const currentHour = new Date().getHours();
