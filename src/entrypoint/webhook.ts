@@ -18,8 +18,6 @@ interface IWebhookEvent {
 }
 
 global.doPost = (e: IWebhookEvent) => {
-  Logger.log(e);
-
   if (isSlackOutgoingWebhook(e)) {
     triggerSlackWebHook(e.parameter);
     return;
