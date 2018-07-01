@@ -1,5 +1,4 @@
 
-import "../lib/polyfill";
 import { aobaBot } from "../lib/bot/aoba";
 import { execMo } from "../lib/function/exec_mo";
 import { execOtsukare } from "../lib/function/exec_otsukare";

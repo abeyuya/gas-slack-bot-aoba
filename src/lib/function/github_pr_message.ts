@@ -1,5 +1,4 @@
 
-import "../polyfill";
 import { IAssignedInfo, IAllUserAssignedPrRepo } from "../client/github";
 
 const buildPrInfoMarkDown = (assignedInfo: IAssignedInfo[]) => {

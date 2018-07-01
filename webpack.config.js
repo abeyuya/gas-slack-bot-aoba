@@ -6,13 +6,34 @@ module.exports = {
   context: __dirname,
   mode: 'development',
   entry: {
-    ds: './src/entrypoint/ds.ts',
-    webhook: './src/entrypoint/webhook.ts',
-    talk: './src/entrypoint/talk.ts',
-    zoi: './src/entrypoint/zoi.ts',
-    github_pr_remind: './src/entrypoint/github_pr_remind.ts',
-    github_pr_remind_all_user: './src/entrypoint/github_pr_remind_all_user.ts',
-    test: './src/entrypoint/test.ts',
+    ds: [
+      './src/lib/polyfill.js',
+      './src/entrypoint/ds.ts'
+    ],
+    webhook: [
+      './src/lib/polyfill.js',
+      './src/entrypoint/webhook.ts'
+    ],
+    talk: [
+      './src/lib/polyfill.js',
+      './src/entrypoint/talk.ts'
+    ],
+    zoi: [
+      './src/lib/polyfill.js',
+      './src/entrypoint/zoi.ts'
+    ],
+    github_pr_remind: [
+      './src/lib/polyfill.js',
+      './src/entrypoint/github_pr_remind.ts'
+    ],
+    github_pr_remind_all_user: [
+      './src/lib/polyfill.js',
+      './src/entrypoint/github_pr_remind_all_user.ts'
+    ],
+    test: [
+      './src/lib/polyfill.js',
+      './src/entrypoint/test.ts'
+    ],
   },
   devtool: false,
   output: {

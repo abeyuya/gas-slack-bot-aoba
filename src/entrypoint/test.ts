@@ -1,6 +1,5 @@
 declare var global: any;
 
-import "../lib/polyfill";
 // import { aobaBot } from "../bot/aoba";
 // import { postToSlackAsBot } from "../lib/slack";
 import { getAssignedPullRequests } from "../lib/client/github";
