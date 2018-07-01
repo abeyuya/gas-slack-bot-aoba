@@ -36,3 +36,7 @@ export const isBusinessDay = (): boolean => {
   if (calJa.getEventsForDay(date).length > 0) { return false; }
   return true;
 };
+
+export const timeToSlackFormat = (date: Date): string => {
+  return `${date.getTime() / 1000}000`;
+};
