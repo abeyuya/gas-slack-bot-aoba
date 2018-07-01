@@ -2,9 +2,14 @@
 import { aobaBot } from "../lib/bot/aoba";
 import { execMo } from "../lib/function/exec_mo";
 import { execOtsukare } from "../lib/function/exec_otsukare";
-import { execZatsudan, execZatsudanAkagi, execZatsudanNenecchi } from "../lib/function/exec_zatsudan";
+import {
+  execZatsudan,
+  execZatsudanAkagi,
+  execZatsudanNenecchi,
+} from "../lib/function/exec_zatsudan";
 import { execGithubPr } from "../lib/function/exec_github_pr";
 import { execLunch } from "../lib/function/exec_lunch";
+import { allChannelMarkAsRead } from "../lib/function/exec_all_channel_mark_as_read";
 import {
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
@@ -49,6 +54,7 @@ enum TriggerWord {
   aoba1 = "@aoba",
   aobaPr1 = "@aoba pr",
   aobaPrRemind1 = "Reminder: @aoba pr",
+  aobaReadAll = "@aoba readall",
   aoba2 = "<@U3S3FR23F>",
   aobaPr2 = "<@U3S3FR23F> pr",
   aobaPrRemind2 = "Reminder: <@U3S3FR23F> pr",
@@ -71,6 +77,13 @@ const triggerSlackWebHook = (workspace: IWorkspace, param: ISlackOutgoingWebhook
     param.text.startsWith(TriggerWord.aobaPrRemind2)
   ) {
     execGithubPr(workspace, param);
+    return;
+  }
+
+  if (param.text.startsWith(TriggerWord.aobaReadAll)) {
+    if (workspace.webhookToken === workspaces.DEBUG.webhookToken) {
+      allChannelMarkAsRead(workspace, param.channel_id);
+    }
     return;
   }
 

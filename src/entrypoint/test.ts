@@ -1,7 +1,8 @@
 declare var global: any;
 
 // import { aobaBot } from "../bot/aoba";
-// import { postToSlackAsBot } from "../lib/slack";
+// import { allChannelMarkAsRead } from "../lib/function/exec_all_channel_mark_as_read";
+// import { workspaces } from "../lib/client/slack";
 import { getAssignedPullRequests } from "../lib/client/github";
 
 global.test = () => {
@@ -16,6 +17,8 @@ global.test = () => {
 
   const info = getAssignedPullRequests("abeyuya");
   Logger.log(info);
+
+  // allChannelMarkAsRead(workspaces.DEBUG);
 
   // postToSlackAsBot(
   //   aobaBot.username,
