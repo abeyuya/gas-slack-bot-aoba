@@ -3,6 +3,7 @@ import { aobaBot } from "../bot/aoba";
 import {
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
+  workspaces,
 } from "../client/slack";
 import { getAssignedPullRequests, getAllAssignedPullRequests } from "../client/github";
 import { buildGithubPrMessage, buildGithubPrMessageForAllUser } from "./github_pr_message";
@@ -21,6 +22,7 @@ export const execGithubPr = (param: ISlackOutgoingWebhookParams) => {
     ].join("\n");
 
     postToSlackAsBot(
+      workspaces.A,
       aobaBot.username,
       aobaBot.icon_url,
       param.channel_id,
@@ -44,6 +46,7 @@ export const execGithubPr = (param: ISlackOutgoingWebhookParams) => {
     ].join("\n");
 
     postToSlackAsBot(
+      workspaces.A,
       aobaBot.username,
       aobaBot.icon_url,
       param.channel_id,
@@ -60,6 +63,7 @@ export const execGithubPr = (param: ISlackOutgoingWebhookParams) => {
   ].join("\n");
 
   postToSlackAsBot(
+    workspaces.A,
     aobaBot.username,
     aobaBot.icon_url,
     param.channel_id,
@@ -85,6 +89,7 @@ export const execGithubPrAllUser = (channelId: string) => {
     ].join("\n");
 
     postToSlackAsBot(
+      workspaces.A,
       aobaBot.username,
       aobaBot.icon_url,
       channelId,
@@ -102,6 +107,7 @@ export const execGithubPrAllUser = (channelId: string) => {
   ].join("\n");
 
   postToSlackAsBot(
+    workspaces.A,
     aobaBot.username,
     aobaBot.icon_url,
     channelId,

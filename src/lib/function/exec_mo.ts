@@ -4,6 +4,7 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
+  workspaces,
 } from "../client/slack";
 
 export const execMo = (bot: IBot, param: ISlackOutgoingWebhookParams) => {
@@ -18,6 +19,7 @@ export const execMo = (bot: IBot, param: ISlackOutgoingWebhookParams) => {
   ];
 
   postToSlackAsBot(
+    workspaces.A,
     bot.username,
     bot.icon_url,
     channel_id,

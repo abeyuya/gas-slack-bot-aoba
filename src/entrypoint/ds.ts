@@ -1,7 +1,7 @@
 declare var global: any;
 
 import { aobaBot } from "../lib/bot/aoba";
-import { postToSlackAsBot } from "../lib/client/slack";
+import { postToSlackAsBot, workspaces } from "../lib/client/slack";
 import { getAobaTweets } from "../lib/client/twitter";
 import { isBusinessDay, randomPickup } from "../lib/util";
 
@@ -27,6 +27,7 @@ global.ds = () => {
   ].join("\n");
 
   postToSlackAsBot(
+    workspaces.A,
     aobaBot.username,
     aobaBot.icon_url,
     process.env.SLACK_DS_CHANNEL || "",

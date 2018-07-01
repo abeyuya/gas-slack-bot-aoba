@@ -7,6 +7,7 @@ import { getNenecchiTweets } from "../client/twitter";
 import {
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
+  workspaces,
 } from "../client/slack";
 import { randomPickup } from "../util";
 
@@ -16,6 +17,7 @@ export const execZatsudan = (bot: IBot, triggerWord: string, param: ISlackOutgoi
   const responseMessage = getDialogueMessage(user_name, receivedMessage);
 
   postToSlackAsBot(
+    workspaces.A,
     bot.username,
     bot.icon_url,
     channel_id,
@@ -27,6 +29,7 @@ export const execZatsudanAkagi = (param: ISlackOutgoingWebhookParams) => {
   const { channel_id } = param;
 
   postToSlackAsBot(
+    workspaces.A,
     akagiBot.username,
     akagiBot.icon_url,
     channel_id,
@@ -39,6 +42,7 @@ export const execZatsudanNenecchi = (param: ISlackOutgoingWebhookParams) => {
   const message = randomPickup(getNenecchiTweets(100), 1)[0];
 
   postToSlackAsBot(
+    workspaces.A,
     nenecchiBot.username,
     nenecchiBot.icon_url,
     channel_id,

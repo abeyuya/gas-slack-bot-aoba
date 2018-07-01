@@ -7,6 +7,7 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
+  workspaces,
 } from "../client/slack";
 import { randomPickup } from "../util";
 
@@ -66,6 +67,7 @@ export const execOtsukare = (param: ISlackOutgoingWebhookParams) => {
   ];
 
   postToSlackAsBot(
+    workspaces.A,
     otsukare.bot.username,
     otsukare.bot.icon_url,
     channel_id,

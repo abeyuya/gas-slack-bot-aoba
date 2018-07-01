@@ -63,6 +63,8 @@ module.exports = {
       'SLACK_DS_CHANNEL',
       'SLACK_OWNER_CHANNEL',
       'SLACK_DEBUG_CHANNEL',
+      'SLACK_B_TOKEN',
+      'SLACK_DEBUG_TOKEN',
       'TW_CONSUMER_KEY',
       'TW_CONSUMER_SECRET',
       'TW_ACCESS_TOKEN',

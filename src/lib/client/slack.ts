@@ -40,10 +40,34 @@ export interface ISlackOutgoingWebhookParams {
   trigger_word: string;
 }
 
+export interface IWorkspace {
+  webhookToken?: string;
+  accessToken: string;
+}
+
+interface IWorkspaces {
+  A: IWorkspace;
+  B: IWorkspace;
+  DEBUG: IWorkspace;
+}
+
+export const workspaces: IWorkspaces = {
+  A: {
+    webhookToken: "sHpmrA0xB8itZLB8vE87TEJP",
+    accessToken: process.env.SLACK_TOKEN || "",
+  },
+  B: {
+    accessToken: process.env.SLACK_B_TOKEN || "",
+  },
+  DEBUG: {
+    accessToken: process.env.SLACK_DEBUG_TOKEN || "",
+  },
+};
+
 const slackPostUrl = "https://slack.com/api/chat.postMessage";
-const slackPostToken = process.env.SLACK_TOKEN || "";
 
 export const postToSlackAsBot = (
+  workspace: IWorkspace,
   botUsername: string,
   botIconUrl: string,
   channel: string,
@@ -52,7 +76,7 @@ export const postToSlackAsBot = (
 ) => {
 
   const payload: IPayload = {
-    token: slackPostToken,
+    token: workspace.accessToken,
     channel,
     text,
     parse: "full",

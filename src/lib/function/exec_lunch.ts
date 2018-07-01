@@ -5,6 +5,7 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
+  workspaces,
 } from "../client/slack";
 import { randomPickup } from "../util";
 
@@ -30,6 +31,7 @@ export const execLunch = (param: ISlackOutgoingWebhookParams) => {
   ];
 
   postToSlackAsBot(
+    workspaces.A,
     lunch.bot.username,
     lunch.bot.icon_url,
     channel_id,

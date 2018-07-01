@@ -5,7 +5,12 @@ import { execOtsukare } from "../lib/function/exec_otsukare";
 import { execZatsudan, execZatsudanAkagi, execZatsudanNenecchi } from "../lib/function/exec_zatsudan";
 import { execGithubPr } from "../lib/function/exec_github_pr";
 import { execLunch } from "../lib/function/exec_lunch";
-import { ISlackOutgoingWebhookParams, postToSlackAsBot } from "../lib/client/slack";
+import {
+  ISlackOutgoingWebhookParams,
+  postToSlackAsBot,
+  IWorkspace,
+  workspaces,
+} from "../lib/client/slack";
 import { randomPickup } from "../lib/util";
 
 declare var global: any;
@@ -18,14 +23,23 @@ interface IWebhookEvent {
 }
 
 global.doPost = (e: IWebhookEvent) => {
-  if (isSlackOutgoingWebhook(e)) {
+
+  const slackWorkspace = slackOutgoingWebhookWorkspace(e);
+  if (slackWorkspace) {
     triggerSlackWebHook(e.parameter);
     return;
   }
 };
 
-const isSlackOutgoingWebhook = (e: IWebhookEvent): boolean => {
-  return e.parameter.token === "sHpmrA0xB8itZLB8vE87TEJP";
+const slackOutgoingWebhookWorkspace = (e: IWebhookEvent): IWorkspace | null => {
+  const targetWorkspaceKey = Object.keys(workspaces).find((key) => {
+    const ws: IWorkspace = workspaces[key];
+    return ws.webhookToken === e.parameter.token;
+  });
+
+  return targetWorkspaceKey
+    ? workspaces[targetWorkspaceKey]
+    : null;
 };
 
 enum TriggerWord {
@@ -101,6 +115,7 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
 
   const message = `未実装のトリガーワードを受け取ったぞい [${param.trigger_word}]`;
   postToSlackAsBot(
+    workspaces.DEBUG,
     aobaBot.username,
     aobaBot.icon_url,
     process.env.SLACK_DEBUG_CHANNEL || "",
