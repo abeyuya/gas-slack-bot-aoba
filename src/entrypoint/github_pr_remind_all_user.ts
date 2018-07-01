@@ -11,7 +11,7 @@ global.github_pr_remind_all_user = () => {
     workspaces.A,
     nenecchiBot.username,
     nenecchiBot.icon_url,
-    process.env.SLACK_OWNER_CHANNEL || "",
+    process.env.SLACK_REVIEW_CHANNEL || "",
     "あおっち確認よろしく〜",
   );
 
@@ -19,7 +19,7 @@ global.github_pr_remind_all_user = () => {
     workspaces.A,
     nenecchiBot.username,
     nenecchiBot.icon_url,
-    process.env.SLACK_OWNER_CHANNEL || "",
+    process.env.SLACK_REVIEW_CHANNEL || "",
     "@aoba pr all",
   );
 };
