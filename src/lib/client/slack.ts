@@ -60,6 +60,7 @@ export const workspaces: IWorkspaces = {
     accessToken: process.env.SLACK_B_TOKEN || "",
   },
   DEBUG: {
+    webhookToken: "paTht3I16gGkNvLgFkUSGAu6",
     accessToken: process.env.SLACK_DEBUG_TOKEN || "",
   },
 };

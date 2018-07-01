@@ -4,10 +4,10 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-  workspaces,
+  IWorkspace,
 } from "../client/slack";
 
-export const execMo = (bot: IBot, param: ISlackOutgoingWebhookParams) => {
+export const execMo = (workspace: IWorkspace, bot: IBot, param: ISlackOutgoingWebhookParams) => {
   const currentHour = new Date().getHours();
   if (currentHour < 18) { return; }
   const { channel_id } = param;
@@ -19,7 +19,7 @@ export const execMo = (bot: IBot, param: ISlackOutgoingWebhookParams) => {
   ];
 
   postToSlackAsBot(
-    workspaces.A,
+    workspace,
     bot.username,
     bot.icon_url,
     channel_id,

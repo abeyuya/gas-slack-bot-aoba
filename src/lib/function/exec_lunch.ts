@@ -5,7 +5,7 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-  workspaces,
+  IWorkspace,
 } from "../client/slack";
 import { randomPickup } from "../util";
 
@@ -20,7 +20,7 @@ const lunchList = [
   },
 ];
 
-export const execLunch = (param: ISlackOutgoingWebhookParams) => {
+export const execLunch = (workspace: IWorkspace, param: ISlackOutgoingWebhookParams) => {
   const { channel_id } = param;
   const lunch = randomPickup(lunchList, 1)[0];
   const attachments: IAttachment[] = [
@@ -31,7 +31,7 @@ export const execLunch = (param: ISlackOutgoingWebhookParams) => {
   ];
 
   postToSlackAsBot(
-    workspaces.A,
+    workspace,
     lunch.bot.username,
     lunch.bot.icon_url,
     channel_id,

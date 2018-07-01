@@ -26,15 +26,18 @@ global.doPost = (e: IWebhookEvent) => {
 
   const slackWorkspace = slackOutgoingWebhookWorkspace(e);
   if (slackWorkspace) {
-    triggerSlackWebHook(e.parameter);
+    triggerSlackWebHook(slackWorkspace, e.parameter);
     return;
   }
 };
 
 const slackOutgoingWebhookWorkspace = (e: IWebhookEvent): IWorkspace | null => {
+  const token = e.parameter.token;
+  if (!token) { return null; }
+
   const targetWorkspaceKey = Object.keys(workspaces).find((key) => {
     const ws: IWorkspace = workspaces[key];
-    return ws.webhookToken === e.parameter.token;
+    return ws.webhookToken === token;
   });
 
   return targetWorkspaceKey
@@ -59,7 +62,7 @@ enum TriggerWord {
   akagi = "@赤木",
 }
 
-const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
+const triggerSlackWebHook = (workspace: IWorkspace, param: ISlackOutgoingWebhookParams) => {
 
   if (
     param.text.startsWith(TriggerWord.aobaPr1) ||
@@ -67,7 +70,7 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
     param.text.startsWith(TriggerWord.aobaPrRemind1) ||
     param.text.startsWith(TriggerWord.aobaPrRemind2)
   ) {
-    execGithubPr(param);
+    execGithubPr(workspace, param);
     return;
   }
 
@@ -75,22 +78,22 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
     param.text.startsWith(TriggerWord.aoba1) ||
     param.text.startsWith(TriggerWord.aoba2)
   ) {
-    execZatsudan(aobaBot, param.trigger_word, param);
+    execZatsudan(workspace, aobaBot, param.trigger_word, param);
     return;
   }
 
   if (param.text.startsWith(TriggerWord.akagi)) {
-    execZatsudanAkagi(param);
+    execZatsudanAkagi(workspace, param);
     return;
   }
 
   if (param.text.startsWith(TriggerWord.nenecchi)) {
-    execZatsudanNenecchi(param);
+    execZatsudanNenecchi(workspace, param);
     return;
   }
 
   if (param.text.startsWith(TriggerWord.mo)) {
-    execMo(aobaBot, param);
+    execMo(workspace, aobaBot, param);
     return;
   }
 
@@ -99,7 +102,7 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
     param.text.startsWith(TriggerWord.otsukare2) ||
     param.text.startsWith(TriggerWord.otsukare3)
   ) {
-    execOtsukare(param);
+    execOtsukare(workspace, param);
     return;
   }
 
@@ -109,13 +112,13 @@ const triggerSlackWebHook = (param: ISlackOutgoingWebhookParams) => {
   ) {
     const ignore = randomPickup([true, true, false], 1)[0];
     if (ignore) { return; }
-    execLunch(param);
+    execLunch(workspace, param);
     return;
   }
 
   const message = `未実装のトリガーワードを受け取ったぞい [${param.trigger_word}]`;
   postToSlackAsBot(
-    workspaces.DEBUG,
+    workspace,
     aobaBot.username,
     aobaBot.icon_url,
     process.env.SLACK_DEBUG_CHANNEL || "",

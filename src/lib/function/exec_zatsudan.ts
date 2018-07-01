@@ -7,17 +7,22 @@ import { getNenecchiTweets } from "../client/twitter";
 import {
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-  workspaces,
+  IWorkspace,
 } from "../client/slack";
 import { randomPickup } from "../util";
 
-export const execZatsudan = (bot: IBot, triggerWord: string, param: ISlackOutgoingWebhookParams) => {
+export const execZatsudan = (
+  workspace: IWorkspace,
+  bot: IBot,
+  triggerWord: string,
+  param: ISlackOutgoingWebhookParams,
+) => {
   const { text, user_name, channel_id } = param;
   const receivedMessage = text.replace(triggerWord, "").trim();
   const responseMessage = getDialogueMessage(user_name, receivedMessage);
 
   postToSlackAsBot(
-    workspaces.A,
+    workspace,
     bot.username,
     bot.icon_url,
     channel_id,
@@ -25,11 +30,11 @@ export const execZatsudan = (bot: IBot, triggerWord: string, param: ISlackOutgoi
   );
 };
 
-export const execZatsudanAkagi = (param: ISlackOutgoingWebhookParams) => {
+export const execZatsudanAkagi = (workspace: IWorkspace, param: ISlackOutgoingWebhookParams) => {
   const { channel_id } = param;
 
   postToSlackAsBot(
-    workspaces.A,
+    workspace,
     akagiBot.username,
     akagiBot.icon_url,
     channel_id,
@@ -37,12 +42,12 @@ export const execZatsudanAkagi = (param: ISlackOutgoingWebhookParams) => {
   );
 };
 
-export const execZatsudanNenecchi = (param: ISlackOutgoingWebhookParams) => {
+export const execZatsudanNenecchi = (workspace: IWorkspace, param: ISlackOutgoingWebhookParams) => {
   const { channel_id } = param;
   const message = randomPickup(getNenecchiTweets(100), 1)[0];
 
   postToSlackAsBot(
-    workspaces.A,
+    workspace,
     nenecchiBot.username,
     nenecchiBot.icon_url,
     channel_id,

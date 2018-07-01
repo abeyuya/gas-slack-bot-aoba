@@ -7,7 +7,7 @@ import {
   IAttachment,
   ISlackOutgoingWebhookParams,
   postToSlackAsBot,
-  workspaces,
+  IWorkspace,
 } from "../client/slack";
 import { randomPickup } from "../util";
 
@@ -47,7 +47,7 @@ const ignoreOtsukareWords = [
   "おつかれさまです",
 ];
 
-export const execOtsukare = (param: ISlackOutgoingWebhookParams) => {
+export const execOtsukare = (workspace: IWorkspace, param: ISlackOutgoingWebhookParams) => {
   const { channel_id, user_name, text } = param;
 
   if (user_name === "slackbot") { return; }
@@ -67,7 +67,7 @@ export const execOtsukare = (param: ISlackOutgoingWebhookParams) => {
   ];
 
   postToSlackAsBot(
-    workspaces.A,
+    workspace,
     otsukare.bot.username,
     otsukare.bot.icon_url,
     channel_id,
