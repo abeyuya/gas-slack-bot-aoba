@@ -2,11 +2,7 @@
 import { aobaBot } from "../lib/bot/aoba";
 import { execMo } from "../lib/function/exec_mo";
 import { execOtsukare } from "../lib/function/exec_otsukare";
-import {
-  execZatsudan,
-  execZatsudanAkagi,
-  execZatsudanNenecchi,
-} from "../lib/function/exec_zatsudan";
+import { execZatsudan, execZatsudanNenecchi } from "../lib/function/exec_zatsudan";
 import { execGithubPr } from "../lib/function/exec_github_pr";
 import { execLunch } from "../lib/function/exec_lunch";
 import { allChannelMarkAsRead } from "../lib/function/exec_all_channel_mark_as_read";
@@ -65,7 +61,6 @@ enum TriggerWord {
   rice = ":rice:",
   riceBall = ":rice_ball:",
   nenecchi = "@ねねっち",
-  akagi = "@赤木",
 }
 
 const triggerSlackWebHook = (workspace: IWorkspace, param: ISlackOutgoingWebhookParams) => {
@@ -92,11 +87,6 @@ const triggerSlackWebHook = (workspace: IWorkspace, param: ISlackOutgoingWebhook
     param.text.startsWith(TriggerWord.aoba2)
   ) {
     execZatsudan(workspace, aobaBot, param.trigger_word, param);
-    return;
-  }
-
-  if (param.text.startsWith(TriggerWord.akagi)) {
-    execZatsudanAkagi(workspace, param);
     return;
   }
 

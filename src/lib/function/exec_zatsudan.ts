@@ -1,6 +1,5 @@
 
 import { IBot } from "../bot/base";
-import { akagiBot } from "../bot/akagi";
 import { nenecchiBot } from "../bot/nenecchi";
 import { getDialogueMessage } from "../client/docomo_zatsudan";
 import { getNenecchiTweets } from "../client/twitter";
@@ -27,18 +26,6 @@ export const execZatsudan = (
     bot.icon_url,
     channel_id,
     responseMessage,
-  );
-};
-
-export const execZatsudanAkagi = (workspace: IWorkspace, param: ISlackOutgoingWebhookParams) => {
-  const { channel_id } = param;
-
-  postToSlackAsBot(
-    workspace,
-    akagiBot.username,
-    akagiBot.icon_url,
-    channel_id,
-    "ウッス",
   );
 };
 
