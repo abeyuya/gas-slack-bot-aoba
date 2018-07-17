@@ -64,3 +64,32 @@ export const execJihoOyatsu = () => {
     attachments,
   );
 };
+
+// tslint:disable
+const everyJihoList = [
+  {
+    bot: yunBot,
+    message: "10分間休憩タイムやでー！キリが良い人は大広間で一緒にちょっと休憩しようやー！",
+    imageUrl: "http://hurimeri.com/wp-content/uploads/2016/09/newgemuyun.png",
+  },
+];
+// tslint:enable
+
+export const execJihoEvery = () => {
+  const jiho = randomPickup(everyJihoList, 1)[0];
+  const attachments: IAttachment[] = [
+    {
+      pretext: jiho.message,
+      image_url: jiho.imageUrl,
+    },
+  ];
+
+  postToSlackAsBot(
+    workspaces.A,
+    jiho.bot.username,
+    jiho.bot.icon_url,
+    "#a-twitter",
+    "",
+    attachments,
+  );
+};
