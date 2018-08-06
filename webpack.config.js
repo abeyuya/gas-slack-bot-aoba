@@ -30,10 +30,10 @@ module.exports = {
       './src/lib/polyfill.js',
       './src/entrypoint/github_pr_remind_all_user.ts'
     ],
-    jiho: [
-      './src/lib/polyfill.js',
-      './src/entrypoint/jiho.ts'
-    ],
+    // jiho: [
+    //   './src/lib/polyfill.js',
+    //   './src/entrypoint/jiho.ts'
+    // ],
     test: [
       './src/lib/polyfill.js',
       './src/entrypoint/test.ts'
