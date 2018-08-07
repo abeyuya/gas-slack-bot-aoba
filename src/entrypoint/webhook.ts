@@ -1,14 +1,14 @@
 
 import { aobaBot } from "../lib/bot/aoba";
 import { execMo } from "../lib/function/exec_mo";
-import { execOtsukare } from "../lib/function/exec_otsukare";
+// import { execOtsukare } from "../lib/function/exec_otsukare";
 import { execZatsudan, execZatsudanNenecchi } from "../lib/function/exec_zatsudan";
 import { execGithubPr } from "../lib/function/exec_github_pr";
 import { execLunch } from "../lib/function/exec_lunch";
 import { allChannelMarkAsRead } from "../lib/function/exec_all_channel_mark_as_read";
 import {
   ISlackOutgoingWebhookParams,
-  postToSlackAsBot,
+  // postToSlackAsBot,
   IWorkspace,
   workspaces,
 } from "../lib/client/slack";
@@ -100,14 +100,14 @@ const triggerSlackWebHook = (workspace: IWorkspace, param: ISlackOutgoingWebhook
     return;
   }
 
-  if (
-    param.text.startsWith(TriggerWord.otsukare1) ||
-    param.text.startsWith(TriggerWord.otsukare2) ||
-    param.text.startsWith(TriggerWord.otsukare3)
-  ) {
-    execOtsukare(workspace, param);
-    return;
-  }
+  // if (
+  //   param.text.startsWith(TriggerWord.otsukare1) ||
+  //   param.text.startsWith(TriggerWord.otsukare2) ||
+  //   param.text.startsWith(TriggerWord.otsukare3)
+  // ) {
+  //   execOtsukare(workspace, param);
+  //   return;
+  // }
 
   if (
     param.text.startsWith(TriggerWord.rice) ||
@@ -119,12 +119,12 @@ const triggerSlackWebHook = (workspace: IWorkspace, param: ISlackOutgoingWebhook
     return;
   }
 
-  const message = `未実装のトリガーワードを受け取ったぞい [${param.trigger_word}]`;
-  postToSlackAsBot(
-    workspace,
-    aobaBot.username,
-    aobaBot.icon_url,
-    process.env.SLACK_DEBUG_CHANNEL || "",
-    message,
-  );
+  // const message = `未実装のトリガーワードを受け取ったぞい [${param.trigger_word}]`;
+  // postToSlackAsBot(
+  //   workspace,
+  //   aobaBot.username,
+  //   aobaBot.icon_url,
+  //   process.env.SLACK_DEBUG_CHANNEL || "",
+  //   message,
+  // );
 };
