@@ -16,7 +16,7 @@ const lunchList = [
   },
   {
     bot: nenecchiBot,
-    imageUrl: "https://i.redd.it/7793jrxophaz.jpg",
+    imageUrl: "https://cdn-ak.f.st-hatena.com/images/fotolife/k/kat_cloudair/20160824/20160824184424.jpg",
   },
 ];
 
